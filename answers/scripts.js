@@ -12,10 +12,12 @@ app.init = () => {
 
 app.getColourID = (userInput) => {
   $.ajax({
-    url: `https://fun-fun-colors.herokuapp.com/colorcheck?q=${userInput}`,
+    url: `https://fun-fun-colors.herokuapp.com/colorcheck`,
     method: 'GET',
     dataType: 'json',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    data: {
+      q: userInput
+    }
   }).then(res => {
     if (res.colorIndex === `doesnt exist`) {
       window.alert(`Color doesn't exist!`)
@@ -31,8 +33,7 @@ app.getColourByID = (id) => {
   $.ajax({
     url: `https://fun-fun-colors.herokuapp.com/color/${id}`,
     method: 'GET',
-    dataType: 'json',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+    dataType: 'json'
   }).then(res => {
     app.printColour(res.color)
   }).catch(err => {
